@@ -1,5 +1,3 @@
-import { compare } from "../helpers/helper";
-
 const ADD_NUMBER = "ADD_NUMBER";
 const ADD_WORD = "ADD_WORD";
 const ADD_NUMB_AND_WORD = "ADD_NUMB_AND_WORD";
@@ -68,8 +66,18 @@ export function mainReducer(state = initialState, action) {
         return {
           ...state,
           numbers: [...state.numbers.sort((a, b) => a.value - b.value)],
-          words: [...state.words.sort(compare("value"))],
-          numAndWords: [...state.numAndWords.sort(compare("value"))],
+          words: [
+            ...state.words.sort(
+              (a, b) =>
+                (a.value < b.value && -1) || (a.value > b.value && 1) || 0
+            ),
+          ],
+          numAndWords: [
+            ...state.numAndWords.sort(
+              (a, b) =>
+                (a.value < b.value && -1) || (a.value > b.value && 1) || 0
+            ),
+          ],
           isFilterActive: action.payload,
         };
       }
