@@ -6,11 +6,9 @@ export default function Input() {
   let [value, setValue] = useState("");
   let dispatch = useDispatch();
   let ref = useRef();
-  // let regNumbers = new RegExp("^\\d+$");
   let regNumbers = new RegExp("^[0-9 ]*$");
   let regWords = new RegExp(/^[a-zа-яё ]+$/i);
-  let regWordsAndNumb = new RegExp(/^([a-zа-яё]+|\d+)$/i);
-  // let regWords = new RegExp("[a-zA-Zа-яА-Я ]*$");
+  let regWordsAndNumb = new RegExp(/^[a-zA-Zа-яА-ЯёЁ0-9 ]*$/);
 
   useEffect(() => {
     ref.current.focus();
@@ -34,7 +32,7 @@ export default function Input() {
         setValue("");
         return;
       }
-      if(!regWordsAndNumb.test(value)){
+      if(regWordsAndNumb.test(value)){
       dispatch(putNumbAndWord(value));
       setValue("");
       return;
